@@ -1,0 +1,4 @@
+[submodule "NyaruDB"]
+	path = NyaruDB
+	url = git://github.com/kelp404/NyaruDB.git
+	ignore = dirty
