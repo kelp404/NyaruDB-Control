@@ -8,8 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NyaruControlAppDelegate : NSObject <NSApplicationDelegate>
+@class MainWindowController;
 
-@property (assign) IBOutlet NSWindow *window;
+@interface NyaruControlAppDelegate : NSObject <NSApplicationDelegate> {
+    NSMutableArray *_windowPool;
+}
+
+- (IBAction)clickNewWindow:(id)sender;
+
+- (void)removeWindowFromPool:(id)window;
 
 @end

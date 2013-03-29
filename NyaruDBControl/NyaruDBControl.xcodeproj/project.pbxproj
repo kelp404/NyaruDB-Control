@@ -18,6 +18,8 @@
 		211A7F281702C7CD00275AEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211A7F261702C7CD00275AEF /* InfoPlist.strings */; };
 		211A7F2B1702C7CD00275AEF /* NyaruDBControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */; };
 		21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21552D6B1703087300616FDA /* libNyaruDB-OSX.a */; };
+		21DF5C9217058FED007565DF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DF5C9017058FED007565DF /* MainWindow.xib */; };
+		21DF5C9617059212007565DF /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF5C9517059212007565DF /* MainWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +52,10 @@
 		211A7F271702C7CD00275AEF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		211A7F291702C7CD00275AEF /* NyaruDBControlTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NyaruDBControlTests.h; sourceTree = "<group>"; };
 		211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NyaruDBControlTests.m; sourceTree = "<group>"; };
-		21552D6B1703087300616FDA /* libNyaruDB-OSX.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libNyaruDB-OSX.a"; path = "../NyaruDB/NyaruDB-OSX/build/Release/libNyaruDB-OSX.a"; sourceTree = "<group>"; };
+		21552D6B1703087300616FDA /* libNyaruDB-OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNyaruDB-OSX.a"; path = "../NyaruDB/NyaruDB-OSX/build/Release/libNyaruDB-OSX.a"; sourceTree = "<group>"; };
+		21DF5C9117058FED007565DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		21DF5C9417059211007565DF /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		21DF5C9517059212007565DF /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +125,9 @@
 			children = (
 				211A7F121702C7CC00275AEF /* NyaruControlAppDelegate.h */,
 				211A7F131702C7CC00275AEF /* NyaruControlAppDelegate.m */,
-				211A7F151702C7CD00275AEF /* MainMenu.xib */,
+				21DF5C9417059211007565DF /* MainWindowController.h */,
+				21DF5C9517059212007565DF /* MainWindowController.m */,
+				21DF5C9317058FF3007565DF /* Views */,
 				211A7F071702C7CC00275AEF /* Supporting Files */,
 			);
 			path = NyaruDBControl;
@@ -155,6 +162,15 @@
 				211A7F261702C7CD00275AEF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21DF5C9317058FF3007565DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				211A7F151702C7CD00275AEF /* MainMenu.xib */,
+				21DF5C9017058FED007565DF /* MainWindow.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +247,7 @@
 				211A7F0B1702C7CC00275AEF /* InfoPlist.strings in Resources */,
 				211A7F111702C7CC00275AEF /* Credits.rtf in Resources */,
 				211A7F171702C7CD00275AEF /* MainMenu.xib in Resources */,
+				21DF5C9217058FED007565DF /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +284,7 @@
 			files = (
 				211A7F0D1702C7CC00275AEF /* main.m in Sources */,
 				211A7F141702C7CC00275AEF /* NyaruControlAppDelegate.m in Sources */,
+				21DF5C9617059212007565DF /* MainWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +337,14 @@
 				211A7F271702C7CD00275AEF /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		21DF5C9017058FED007565DF /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21DF5C9117058FED007565DF /* en */,
+			);
+			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
