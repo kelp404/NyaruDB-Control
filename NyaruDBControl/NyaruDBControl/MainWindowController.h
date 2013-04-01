@@ -8,14 +8,25 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class NyaruDB;
+@class CollectionsViewController;
+@class CollectionViewController;
+
 @interface MainWindowController : NSWindowController <NSWindowDelegate> {
     IBOutlet NSTextField *_path;
+    IBOutlet NSSplitView *_split;
+    CollectionsViewController *_collections;
+    CollectionViewController *_collection;
+    NyaruDB *_db;
 }
 
 
 + (NSString *)nibName;
 
-#pragma mark - Button Events
+#pragma mark - Actions
+- (IBAction)pressEnter:(NSTextField *)sender;
+
+#pragma mark Buttons
 - (IBAction)clickOpenPath:(id)sender;
 
 

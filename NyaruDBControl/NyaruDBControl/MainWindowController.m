@@ -8,6 +8,9 @@
 
 #import "MainWindowController.h"
 #import "NyaruControlAppDelegate.h"
+#import "CollectionsViewController.h"
+#import "CollectionViewController.h"
+#import <NyaruDB/NyaruDB.h>
 
 
 @interface MainWindowController ()
@@ -39,6 +42,7 @@
 {
     [super windowDidLoad];
     
+    // show open panel
     [self clickOpenPath:nil];
 }
 
@@ -48,7 +52,15 @@
     [(NyaruControlAppDelegate *)[[NSApplication sharedApplication] delegate] removeWindowFromPool:self];
 }
 
-#pragma mark - Button
+#pragma mark - Actions
+- (IBAction)pressEnter:(NSTextField *)sender
+{
+    if (sender.stringValue.length > 0) {
+        [self setupDatabase];
+    }
+}
+
+#pragma mark Buttons
 - (IBAction)clickOpenPath:(NSMenuItem *)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -57,7 +69,7 @@
     [panel setCanCreateDirectories:YES];
     [panel setAllowsMultipleSelection:NO];
     
-    if (sender.tag == 1) {  // ~/
+    if (sender.tag == 1) {      // ~/
         [panel setDirectoryURL:[NSURL fileURLWithPath:NSHomeDirectory()]];
     }
     else if (sender.tag == 2) { // /tmp
@@ -72,12 +84,45 @@
         if (result == NSOKButton) {
             [_path setStringValue:panel.URL.path];
         }
+        else {
+            [_path setStringValue:@"/tmp/NyaruDB"];
+        }
+        [self setupDatabase];
     }];
 }
 
 
 #pragma mark - Setup
-
+- (void)setupDatabase
+{
+    if (_db) {
+        [_db close];
+    }
+    
+    self.window.title = [NSString stringWithFormat:@"NyaruDB Control - %@", _path.stringValue];
+    @try {
+        _db = [[NyaruDB alloc] initWithPath:_path.stringValue];
+    }
+    @catch (__unused NSException *exception) {
+        NSAlert *alert = [NSAlert new];
+        [alert setAlertStyle:NSInformationalAlertStyle];
+        [alert setMessageText:@"NyaruDB Control"];
+        [alert setInformativeText:@"Data loading failed!"];
+        [alert runModal];
+    }
+    while (_split.subviews.count > 0) {
+        [_split.subviews.lastObject removeFromSuperview];
+    }
+    
+    // collections view
+    _collections = [[CollectionsViewController alloc] initWithNibName:[CollectionsViewController nibName] bundle:nil];
+    _collections.db = _db;
+    [_split addSubview:_collections.view];
+    
+    // collection view
+    _collection = [[CollectionViewController alloc] initWithNibName:[CollectionViewController nibName] bundle:nil];
+    [_split addSubview:_collection.view];
+}
 
 
 @end
