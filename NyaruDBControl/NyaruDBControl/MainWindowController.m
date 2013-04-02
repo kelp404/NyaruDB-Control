@@ -8,8 +8,6 @@
 
 #import "MainWindowController.h"
 #import "NyaruControlAppDelegate.h"
-#import "CollectionsViewController.h"
-#import "CollectionViewController.h"
 #import <NyaruDB/NyaruDB.h>
 
 
@@ -42,6 +40,11 @@
 {
     [super windowDidLoad];
     
+    // setup menus
+    NyaruControlAppDelegate *app = (NyaruControlAppDelegate *)[[NSApplication sharedApplication] delegate];
+    [[app.menuCollection.itemArray objectAtIndex:0] setAction:@selector(focusNewCollection:)];
+    [[app.menuCollection.itemArray objectAtIndex:1] setAction:@selector(removeCollection:)];
+    
     // show open panel
     [self clickOpenPath:nil];
 }
@@ -53,11 +56,30 @@
 }
 
 #pragma mark - Actions
-- (IBAction)pressEnter:(NSTextField *)sender
+- (IBAction)pressEnterLoadDatabase:(NSTextField *)sender
 {
     if (sender.stringValue.length > 0) {
         [self setupDatabase];
     }
+}
+- (void)focusNewCollection:(id)sender
+{
+    [_newCollection becomeFirstResponder];
+}
+- (IBAction)addCollection:(id)sender
+{
+    if (_newCollection.stringValue.length > 0) {
+        [_db collectionForName:_newCollection.stringValue];
+        [_newCollection setStringValue:@""];
+        
+        [self loadCollections];
+    }
+}
+- (void)removeCollection:(id)sender
+{
+    NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
+    [_db removeCollection:co.name];
+    [self loadCollections];
 }
 
 #pragma mark Buttons
@@ -83,12 +105,24 @@
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             [_path setStringValue:panel.URL.path];
+            [self setupDatabase];
         }
-        else {
+        else if (_path.stringValue.length <= 0) {
             [_path setStringValue:@"/tmp/NyaruDB"];
+            [self setupDatabase];
         }
-        [self setupDatabase];
     }];
+}
+
+
+#pragma mark - NSTableViewDelegate
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    return [(NyaruCollection *)[_collections objectAtIndex:row] name];
+}
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return _collections.count;
 }
 
 
@@ -109,19 +143,21 @@
         [alert setMessageText:@"NyaruDB Control"];
         [alert setInformativeText:@"Data loading failed!"];
         [alert runModal];
-    }
-    while (_split.subviews.count > 0) {
-        [_split.subviews.lastObject removeFromSuperview];
+        return;
     }
     
-    // collections view
-    _collections = [[CollectionsViewController alloc] initWithNibName:[CollectionsViewController nibName] bundle:nil];
-    _collections.db = _db;
-    [_split addSubview:_collections.view];
-    
-    // collection view
-    _collection = [[CollectionViewController alloc] initWithNibName:[CollectionViewController nibName] bundle:nil];
-    [_split addSubview:_collection.view];
+    [self loadCollections];
+}
+- (void)loadCollections
+{
+    // sort collections
+    _collections = [_db.collections sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[(NyaruCollection *)obj1 name] compare:[(NyaruCollection *)obj2 name]];
+    }];
+    [_tableCollections reloadData];
+    if (_collections.count > 0 && _tableCollections.selectedRow == NSUIntegerMax) {
+        [_tableCollections selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    }
 }
 
 

@@ -9,22 +9,27 @@
 #import <Cocoa/Cocoa.h>
 
 @class NyaruDB;
-@class CollectionsViewController;
-@class CollectionViewController;
 
-@interface MainWindowController : NSWindowController <NSWindowDelegate> {
+@interface MainWindowController : NSWindowController <NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate> {
+    // UI
     IBOutlet NSTextField *_path;
     IBOutlet NSSplitView *_split;
-    CollectionsViewController *_collections;
-    CollectionViewController *_collection;
+    IBOutlet NSTextField *_newCollection;
+    IBOutlet NSTableView *_tableCollections;
+    
+    // database
     NyaruDB *_db;
+    
+    // collections for table view
+    NSArray *_collections;
 }
 
 
 + (NSString *)nibName;
 
 #pragma mark - Actions
-- (IBAction)pressEnter:(NSTextField *)sender;
+- (IBAction)pressEnterLoadDatabase:(NSTextField *)sender;
+- (IBAction)addCollection:(id)sender;
 
 #pragma mark Buttons
 - (IBAction)clickOpenPath:(id)sender;

@@ -36,13 +36,15 @@
 }
 
 #pragma mark Menu
-- (IBAction)clickNewWindow:(id)sender
+- (IBAction)newWindow:(id)sender
 {
     MainWindowController *window = [[MainWindowController alloc] initWithWindowNibName:[MainWindowController nibName]];
     [window showWindow:self];
     [_windowPool addObject:window];
 }
 
+
+#pragma mark - Delegate
 - (void)removeWindowFromPool:(id)window
 {
     [_windowPool removeObject:window];

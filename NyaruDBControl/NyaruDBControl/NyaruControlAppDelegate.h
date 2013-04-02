@@ -14,8 +14,14 @@
     NSMutableArray *_windowPool;
 }
 
-- (IBAction)clickNewWindow:(id)sender;
+#pragma mark - Menus
+@property (strong, nonatomic) IBOutlet NSMenu *menuCollection;
 
+#pragma mark - Actions
+- (IBAction)newWindow:(id)sender;
+
+#pragma mark - Methods
+// for windows in window pool
 - (void)removeWindowFromPool:(id)window;
 
 @end

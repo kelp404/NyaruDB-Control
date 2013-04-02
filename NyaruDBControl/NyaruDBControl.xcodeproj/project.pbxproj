@@ -18,10 +18,6 @@
 		211A7F281702C7CD00275AEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211A7F261702C7CD00275AEF /* InfoPlist.strings */; };
 		211A7F2B1702C7CD00275AEF /* NyaruDBControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */; };
 		21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21552D6B1703087300616FDA /* libNyaruDB-OSX.a */; };
-		219685291706ADF90050F84E /* CollectionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 219685271706ADF90050F84E /* CollectionsView.xib */; };
-		2196852C1706AE670050F84E /* CollectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2196852B1706AE660050F84E /* CollectionsViewController.m */; };
-		21C14441170939EF001D7751 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C1443F170939EF001D7751 /* CollectionViewController.m */; };
-		21C1444517093A22001D7751 /* CollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C1444317093A22001D7751 /* CollectionView.xib */; };
 		21DF5C9217058FED007565DF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DF5C9017058FED007565DF /* MainWindow.xib */; };
 		21DF5C9617059212007565DF /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF5C9517059212007565DF /* MainWindowController.m */; };
 /* End PBXBuildFile section */
@@ -57,12 +53,6 @@
 		211A7F291702C7CD00275AEF /* NyaruDBControlTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NyaruDBControlTests.h; sourceTree = "<group>"; };
 		211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NyaruDBControlTests.m; sourceTree = "<group>"; };
 		21552D6B1703087300616FDA /* libNyaruDB-OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNyaruDB-OSX.a"; path = "../NyaruDB/NyaruDB-OSX/build/Release/libNyaruDB-OSX.a"; sourceTree = "<group>"; };
-		219685281706ADF90050F84E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CollectionsView.xib; sourceTree = "<group>"; };
-		2196852A1706AE660050F84E /* CollectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionsViewController.h; sourceTree = "<group>"; };
-		2196852B1706AE660050F84E /* CollectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionsViewController.m; sourceTree = "<group>"; };
-		21C1443E170939EF001D7751 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
-		21C1443F170939EF001D7751 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
-		21C1444417093A22001D7751 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CollectionView.xib; sourceTree = "<group>"; };
 		21DF5C9117058FED007565DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		21DF5C9417059211007565DF /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		21DF5C9517059212007565DF /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
@@ -137,10 +127,6 @@
 				211A7F131702C7CC00275AEF /* NyaruControlAppDelegate.m */,
 				21DF5C9417059211007565DF /* MainWindowController.h */,
 				21DF5C9517059212007565DF /* MainWindowController.m */,
-				2196852A1706AE660050F84E /* CollectionsViewController.h */,
-				2196852B1706AE660050F84E /* CollectionsViewController.m */,
-				21C1443E170939EF001D7751 /* CollectionViewController.h */,
-				21C1443F170939EF001D7751 /* CollectionViewController.m */,
 				21DF5C9317058FF3007565DF /* Views */,
 				211A7F071702C7CC00275AEF /* Supporting Files */,
 			);
@@ -183,8 +169,6 @@
 			children = (
 				211A7F151702C7CD00275AEF /* MainMenu.xib */,
 				21DF5C9017058FED007565DF /* MainWindow.xib */,
-				219685271706ADF90050F84E /* CollectionsView.xib */,
-				21C1444317093A22001D7751 /* CollectionView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -264,8 +248,6 @@
 				211A7F111702C7CC00275AEF /* Credits.rtf in Resources */,
 				211A7F171702C7CD00275AEF /* MainMenu.xib in Resources */,
 				21DF5C9217058FED007565DF /* MainWindow.xib in Resources */,
-				219685291706ADF90050F84E /* CollectionsView.xib in Resources */,
-				21C1444517093A22001D7751 /* CollectionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,8 +285,6 @@
 				211A7F0D1702C7CC00275AEF /* main.m in Sources */,
 				211A7F141702C7CC00275AEF /* NyaruControlAppDelegate.m in Sources */,
 				21DF5C9617059212007565DF /* MainWindowController.m in Sources */,
-				2196852C1706AE670050F84E /* CollectionsViewController.m in Sources */,
-				21C14441170939EF001D7751 /* CollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,22 +337,6 @@
 				211A7F271702C7CD00275AEF /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		219685271706ADF90050F84E /* CollectionsView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				219685281706ADF90050F84E /* en */,
-			);
-			name = CollectionsView.xib;
-			sourceTree = "<group>";
-		};
-		21C1444317093A22001D7751 /* CollectionView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				21C1444417093A22001D7751 /* en */,
-			);
-			name = CollectionView.xib;
 			sourceTree = "<group>";
 		};
 		21DF5C9017058FED007565DF /* MainWindow.xib */ = {
