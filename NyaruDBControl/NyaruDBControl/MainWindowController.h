@@ -13,7 +13,6 @@
 @interface MainWindowController : NSWindowController <NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate> {
     // UI
     IBOutlet NSTextField *_path;
-    IBOutlet NSSplitView *_split;
     IBOutlet NSTextField *_newCollection;
     IBOutlet NSTableView *_tableCollections;
     
