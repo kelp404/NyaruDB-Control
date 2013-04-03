@@ -18,6 +18,7 @@
 		211A7F281702C7CD00275AEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211A7F261702C7CD00275AEF /* InfoPlist.strings */; };
 		211A7F2B1702C7CD00275AEF /* NyaruDBControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */; };
 		21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21552D6B1703087300616FDA /* libNyaruDB-OSX.a */; };
+		219AC2DE170C8FA40034AADA /* MGSFragaria.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 219AC2DD170C8FA40034AADA /* MGSFragaria.framework */; };
 		21DF5C9217058FED007565DF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DF5C9017058FED007565DF /* MainWindow.xib */; };
 		21DF5C9617059212007565DF /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF5C9517059212007565DF /* MainWindowController.m */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		211A7F291702C7CD00275AEF /* NyaruDBControlTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NyaruDBControlTests.h; sourceTree = "<group>"; };
 		211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NyaruDBControlTests.m; sourceTree = "<group>"; };
 		21552D6B1703087300616FDA /* libNyaruDB-OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNyaruDB-OSX.a"; path = "../NyaruDB/NyaruDB-OSX/build/Release/libNyaruDB-OSX.a"; sourceTree = "<group>"; };
+		219AC2DD170C8FA40034AADA /* MGSFragaria.framework */ = {isa = PBXFileReference; lastKnownFileType = file; name = MGSFragaria.framework; path = ../Fragaria/build/Release/MGSFragaria.framework; sourceTree = "<group>"; };
 		21DF5C9117058FED007565DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		21DF5C9417059211007565DF /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		21DF5C9517059212007565DF /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				219AC2DE170C8FA40034AADA /* MGSFragaria.framework in Frameworks */,
 				21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */,
 				211A7F011702C7CC00275AEF /* Cocoa.framework in Frameworks */,
 			);
@@ -103,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				21552D6B1703087300616FDA /* libNyaruDB-OSX.a */,
+				219AC2DD170C8FA40034AADA /* MGSFragaria.framework */,
 				211A7F001702C7CC00275AEF /* Cocoa.framework */,
 				211A7F1E1702C7CD00275AEF /* SenTestingKit.framework */,
 				211A7F021702C7CC00275AEF /* Other Frameworks */,
@@ -415,7 +419,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NyaruDBControl/NyaruDBControl-Prefix.pch";
-				HEADER_SEARCH_PATHS = "../NyaruDB/NyaruDB/**";
+				HEADER_SEARCH_PATHS = (
+					"../NyaruDB/NyaruDB/**",
+					"../Fragaria/**",
+				);
 				INFOPLIST_FILE = "NyaruDBControl/NyaruDBControl-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -428,7 +435,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NyaruDBControl/NyaruDBControl-Prefix.pch";
-				HEADER_SEARCH_PATHS = "../NyaruDB/NyaruDB/**";
+				HEADER_SEARCH_PATHS = (
+					"../NyaruDB/NyaruDB/**",
+					"../Fragaria/**",
+				);
 				INFOPLIST_FILE = "NyaruDBControl/NyaruDBControl-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

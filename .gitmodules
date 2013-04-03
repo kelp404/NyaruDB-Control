@@ -2,3 +2,7 @@
 	path = NyaruDB
 	url = git://github.com/kelp404/NyaruDB.git
 	ignore = dirty
+[submodule "Fragaria"]
+	path = Fragaria
+	url = git://github.com/kelp404/Fragaria.git
+	ignore = dirty

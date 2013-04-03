@@ -15,6 +15,7 @@
     IBOutlet NSTextField *_path;
     IBOutlet NSTextField *_newCollection;
     IBOutlet NSTableView *_tableCollections;
+    IBOutlet NSTextView *_textQuery;
     
     // database
     NyaruDB *_db;

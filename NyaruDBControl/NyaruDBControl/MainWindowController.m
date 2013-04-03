@@ -9,6 +9,7 @@
 #import "MainWindowController.h"
 #import "NyaruControlAppDelegate.h"
 #import <NyaruDB/NyaruDB.h>
+#import "MGSFragaria.h"
 
 
 @interface MainWindowController ()
@@ -44,6 +45,21 @@
     NyaruControlAppDelegate *app = (NyaruControlAppDelegate *)[[NSApplication sharedApplication] delegate];
     [[app.menuCollection.itemArray objectAtIndex:0] setAction:@selector(focusNewCollection:)];
     [[app.menuCollection.itemArray objectAtIndex:1] setAction:@selector(removeCollection:)];
+    
+//    co = db.collectionForName('afe')
+//    print co.all().fetch()
+//    co.where(index='name', equal='kelp').fetch()
+    
+    // setup text view
+    MGSFragaria *fragaria = [MGSFragaria new];
+    [fragaria setObject:@"CoffeeScript" forKey:MGSFOSyntaxDefinitionName];
+    [fragaria embedInView:_textQuery];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithBool:NO] forKey:MGSFragariaPrefsAutocompleteSuggestAutomatically];
+    [defaults setValue:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentNewLinesAutomatically];
+    [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentWithSpaces];
+    [defaults setObject:[NSNumber numberWithBool:NO] forKey:MGSFragariaPrefsShowLineNumberGutter];
+    [defaults setObject:[NSArchiver archivedDataWithRootObject:[NSFont fontWithName:@"Monaco" size:13]] forKey:MGSFragariaPrefsTextFont];
     
     // show open panel
     [self clickOpenPath:nil];
