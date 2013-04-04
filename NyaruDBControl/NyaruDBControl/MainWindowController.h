@@ -9,12 +9,14 @@
 #import <Cocoa/Cocoa.h>
 
 @class NyaruDB;
+@class MGSFragaria;
 
 @interface MainWindowController : NSWindowController <NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate> {
     // UI
     IBOutlet NSTextField *_path;
     IBOutlet NSTextField *_newCollection;
     IBOutlet NSTableView *_tableCollections;
+    MGSFragaria *_fragaria;
     IBOutlet NSTextView *_textQuery;
     
     // database

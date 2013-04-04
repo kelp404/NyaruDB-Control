@@ -46,17 +46,14 @@
     [[app.menuCollection.itemArray objectAtIndex:0] setAction:@selector(focusNewCollection:)];
     [[app.menuCollection.itemArray objectAtIndex:1] setAction:@selector(removeCollection:)];
     
-//    co = db.collectionForName('afe')
-//    print co.all().fetch()
-//    co.where(index='name', equal='kelp').fetch()
-    
     // setup text view
-    MGSFragaria *fragaria = [MGSFragaria new];
-    [fragaria setObject:@"CoffeeScript" forKey:MGSFOSyntaxDefinitionName];
-    [fragaria embedInView:_textQuery];
+    _fragaria = [MGSFragaria new];
+    [_fragaria setObject:@"NyaruDB" forKey:MGSFOSyntaxDefinitionName];
+    [_fragaria embedInView:_textQuery];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithBool:NO] forKey:MGSFragariaPrefsAutocompleteSuggestAutomatically];
-    [defaults setValue:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentNewLinesAutomatically];
+    [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsAutocompleteSuggestAutomatically];
+    [defaults setObject:[NSNumber numberWithFloat:0.5f] forKey:MGSFragariaPrefsAutocompleteAfterDelay];
+    [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentNewLinesAutomatically];
     [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentWithSpaces];
     [defaults setObject:[NSNumber numberWithBool:NO] forKey:MGSFragariaPrefsShowLineNumberGutter];
     [defaults setObject:[NSArchiver archivedDataWithRootObject:[NSFont fontWithName:@"Monaco" size:13]] forKey:MGSFragariaPrefsTextFont];
@@ -139,6 +136,14 @@
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return _collections.count;
+}
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    if (_fragaria.string.length <= 0) {
+        NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
+        [_fragaria setString:[NSString stringWithFormat:@"co = db.collectionForName('%@')\n"
+                              "print co.all().fetch()", co.name]];
+    }
 }
 
 
