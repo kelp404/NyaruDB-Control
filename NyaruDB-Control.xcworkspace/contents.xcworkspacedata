@@ -8,6 +8,9 @@
       location = "group:NyaruDB/NyaruDB-OSX/NyaruDB-OSX.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:CoffeeCocoa/CoffeeCocoa/CoffeeCocoa.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Fragaria/Fragaria.xcodeproj">
    </FileRef>
 </Workspace>

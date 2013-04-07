@@ -6,3 +6,7 @@
 	path = Fragaria
 	url = git://github.com/kelp404/Fragaria.git
 	ignore = dirty
+[submodule "CoffeeCocoa"]
+	path = CoffeeCocoa
+	url = git://github.com/kelp404/CoffeeCocoa.git
+	ignore = dirty

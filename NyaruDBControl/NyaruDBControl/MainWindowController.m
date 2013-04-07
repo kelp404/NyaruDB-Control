@@ -9,6 +9,7 @@
 #import "MainWindowController.h"
 #import "NyaruControlAppDelegate.h"
 #import <NyaruDB/NyaruDB.h>
+#import <CoffeeCocoa/CoffeeCocoa.h>
 #import "MGSFragaria.h"
 
 

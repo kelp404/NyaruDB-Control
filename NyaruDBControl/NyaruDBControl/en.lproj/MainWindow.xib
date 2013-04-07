@@ -661,7 +661,6 @@
 																		<string key="NSFrame">{{10, 33}, {626, 303}}</string>
 																		<reference key="NSSuperview" ref="212352262"/>
 																		<reference key="NSWindow"/>
-																		<reference key="NSNextKeyView"/>
 																		<string key="NSReuseIdentifierKey">_NS:11</string>
 																	</object>
 																	<string key="NSLabel">Result</string>
@@ -2035,7 +2034,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">279</int>
+			<int key="maxID">280</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
