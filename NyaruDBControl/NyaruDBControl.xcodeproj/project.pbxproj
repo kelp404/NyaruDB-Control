@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21027ADC17142740008A433F /* ViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 21027ADB17142740008A433F /* ViewUtility.m */; };
 		210920EC171122B7002EBB93 /* cocoa.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 210920E4171122B7002EBB93 /* cocoa.coffee */; };
 		210920ED171122B7002EBB93 /* coffee-script-1.6.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 210920E6171122B7002EBB93 /* coffee-script-1.6.2.min.js */; };
 		210920EE171122B7002EBB93 /* jquery-1.9.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 210920E7171122B7002EBB93 /* jquery-1.9.1.min.js */; };
@@ -24,6 +25,7 @@
 		211A7F281702C7CD00275AEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211A7F261702C7CD00275AEF /* InfoPlist.strings */; };
 		211A7F2B1702C7CD00275AEF /* NyaruDBControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */; };
 		21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21552D6B1703087300616FDA /* libNyaruDB-OSX.a */; };
+		218094C11713D13D006D9C5C /* QuerySplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218094C01713D13D006D9C5C /* QuerySplitView.m */; };
 		218B61DD1712799100669753 /* QueryPrefix.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 218B61DC1712799100669753 /* QueryPrefix.coffee */; };
 		21DF5C9217058FED007565DF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DF5C9017058FED007565DF /* MainWindow.xib */; };
 		21DF5C9617059212007565DF /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF5C9517059212007565DF /* MainWindowController.m */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21027ADA17142740008A433F /* ViewUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewUtility.h; path = Utilities/ViewUtility.h; sourceTree = "<group>"; };
+		21027ADB17142740008A433F /* ViewUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewUtility.m; path = Utilities/ViewUtility.m; sourceTree = "<group>"; };
 		210920E4171122B7002EBB93 /* cocoa.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cocoa.coffee; sourceTree = "<group>"; };
 		210920E6171122B7002EBB93 /* coffee-script-1.6.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "coffee-script-1.6.2.min.js"; path = "JavaScript/coffee-script-1.6.2.min.js"; sourceTree = "<group>"; };
 		210920E7171122B7002EBB93 /* jquery-1.9.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "jquery-1.9.1.min.js"; path = "JavaScript/jquery-1.9.1.min.js"; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 		211A7F291702C7CD00275AEF /* NyaruDBControlTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NyaruDBControlTests.h; sourceTree = "<group>"; };
 		211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NyaruDBControlTests.m; sourceTree = "<group>"; };
 		21552D6B1703087300616FDA /* libNyaruDB-OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNyaruDB-OSX.a"; path = "../NyaruDB/NyaruDB-OSX/build/Release/libNyaruDB-OSX.a"; sourceTree = "<group>"; };
+		218094BF1713D13D006D9C5C /* QuerySplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuerySplitView.h; sourceTree = "<group>"; };
+		218094C01713D13D006D9C5C /* QuerySplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuerySplitView.m; sourceTree = "<group>"; };
 		218B61DC1712799100669753 /* QueryPrefix.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QueryPrefix.coffee; sourceTree = "<group>"; };
 		21DF5C9117058FED007565DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		21DF5C9417059211007565DF /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -96,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21027AD9171426E6008A433F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				21027ADA17142740008A433F /* ViewUtility.h */,
+				21027ADB17142740008A433F /* ViewUtility.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		210920E3171122A8002EBB93 /* CoffeeCocoa */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,8 +205,11 @@
 				211A7F131702C7CC00275AEF /* NyaruControlAppDelegate.m */,
 				21DF5C9417059211007565DF /* MainWindowController.h */,
 				21DF5C9517059212007565DF /* MainWindowController.m */,
+				218094BF1713D13D006D9C5C /* QuerySplitView.h */,
+				218094C01713D13D006D9C5C /* QuerySplitView.m */,
 				21DF5C9317058FF3007565DF /* Views */,
 				210920F617112B11002EBB93 /* Resources */,
+				21027AD9171426E6008A433F /* Utilities */,
 				211A7F071702C7CC00275AEF /* Supporting Files */,
 			);
 			path = NyaruDBControl;
@@ -354,6 +372,8 @@
 				211A7F0D1702C7CC00275AEF /* main.m in Sources */,
 				211A7F141702C7CC00275AEF /* NyaruControlAppDelegate.m in Sources */,
 				21DF5C9617059212007565DF /* MainWindowController.m in Sources */,
+				218094C11713D13D006D9C5C /* QuerySplitView.m in Sources */,
+				21027ADC17142740008A433F /* ViewUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

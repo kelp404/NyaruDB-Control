@@ -8,6 +8,8 @@
 
 #import "MainWindowController.h"
 #import "NyaruControlAppDelegate.h"
+#import "QuerySplitView.h"
+#import "ViewUtility.h"
 #import <NyaruDB/NyaruDB.h>
 #import <NyaruDB/NyaruQueryCell.h>
 #import <CoffeeCocoa/CoffeeCocoa.h>
@@ -48,6 +50,14 @@
     [[app.menuCollection.itemArray objectAtIndex:1] setAction:@selector(removeCollection:)];
     [[app.menuQuery.itemArray objectAtIndex:0] setAction:@selector(evalQuery:)];
     
+    // setup tab
+    _tabIncrement = 0;
+    [self addTab];
+    
+    // load QueryPrefix -> QueryPrefix.coffee
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"QueryPrefix" ofType:@"coffee"];
+    _queryPrefix = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
     // show open panel
     [self clickOpenPath:nil];
 }
@@ -87,10 +97,9 @@
 }
 - (void)evalQuery:(id)sender
 {
-    // load QueryPrefix -> QueryPrefix.coffee
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"QueryPrefix" ofType:@"coffee"];
-    NSMutableString *queryScript = [NSMutableString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-//    [queryScript appendString:[_fragaria string]];
+    NSTextView *textQuery = [_tabQuery.selectedTabViewItem.view textQuery];
+    NSMutableString *queryScript = [NSMutableString stringWithString:_queryPrefix];
+    [queryScript appendString:textQuery.string];
     
     // eval query
     [_coffee evalCoffeeScript:queryScript];
@@ -129,7 +138,7 @@
 }
 
 
-#pragma mark - NSTableViewDelegate
+#pragma mark - NSTableViewDelegate (Collections table view)
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     return [(NyaruCollection *)[_collections objectAtIndex:row] name];
@@ -140,11 +149,30 @@
 }
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
-//    if (_fragaria.string.length <= 0) {
-//        NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
-//        [_fragaria setString:[NSString stringWithFormat:@"co = db.collectionForName '%@'\n"
-//                              "print co.all().fetch()", co.name]];
-//    }
+    NSTextView *textQuery = [_tabQuery.selectedTabViewItem.view textQuery];
+    if (textQuery.string.length <= 0) {
+        NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
+        [textQuery setString:[NSString stringWithFormat:@"co = db.collectionForName '%@'\n"
+                              "print co.all().fetch()", co.name]];
+    }
+}
+
+
+#pragma mark - Helper
+- (void)addTab
+{
+    // copy _splitQuery
+    NSData *archivedView = [NSKeyedArchiver archivedDataWithRootObject:_splitQuery];
+    QuerySplitView *split = [NSKeyedUnarchiver unarchiveObjectWithData:archivedView];
+    
+    // setup textQuery
+    split.textQuery = [ViewUtility searchViewIn:split kindOf:[NSTextView class] deep:4];
+    [split.textQuery setFont:[NSFont fontWithName:@"Monaco" size:14.0]];
+    
+    NSTabViewItem *tab = [NSTabViewItem new];
+    tab.view = split;
+    [tab setLabel:[NSString stringWithFormat:@"Query #%lx", ++_tabIncrement]];
+    [_tabQuery addTabViewItem:tab];
 }
 
 

@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class QuerySplitView;
 @class NyaruDB;
 @class CoffeeCocoa;
 
@@ -16,13 +17,17 @@
     IBOutlet NSTextField *_path;
     IBOutlet NSTextField *_newCollection;
     IBOutlet NSTableView *_tableCollections;
-    IBOutlet NSTextView *_textQuery;
+    IBOutlet NSTabView *_tabQuery;
+    // in tab
+    NSUInteger _tabIncrement;
+    IBOutlet QuerySplitView *_splitQuery;
     
     // database
     NyaruDB *_db;
     
     // CoffeeCocoa
     CoffeeCocoa *_coffee;
+    NSString *_queryPrefix;
     
     // collections for table view
     NSArray *_collections;
