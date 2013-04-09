@@ -9,8 +9,8 @@
 #import "MainWindowController.h"
 #import "NyaruControlAppDelegate.h"
 #import <NyaruDB/NyaruDB.h>
+#import <NyaruDB/NyaruQueryCell.h>
 #import <CoffeeCocoa/CoffeeCocoa.h>
-#import "MGSFragaria.h"
 
 
 @interface MainWindowController ()
@@ -46,18 +46,7 @@
     NyaruControlAppDelegate *app = (NyaruControlAppDelegate *)[[NSApplication sharedApplication] delegate];
     [[app.menuCollection.itemArray objectAtIndex:0] setAction:@selector(focusNewCollection:)];
     [[app.menuCollection.itemArray objectAtIndex:1] setAction:@selector(removeCollection:)];
-    
-    // setup text view
-    _fragaria = [MGSFragaria new];
-    [_fragaria setObject:@"NyaruDB" forKey:MGSFOSyntaxDefinitionName];
-    [_fragaria embedInView:_textQuery];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsAutocompleteSuggestAutomatically];
-    [defaults setObject:[NSNumber numberWithFloat:0.5f] forKey:MGSFragariaPrefsAutocompleteAfterDelay];
-    [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentNewLinesAutomatically];
-    [defaults setObject:[NSNumber numberWithBool:YES] forKey:MGSFragariaPrefsIndentWithSpaces];
-    [defaults setObject:[NSNumber numberWithBool:NO] forKey:MGSFragariaPrefsShowLineNumberGutter];
-    [defaults setObject:[NSArchiver archivedDataWithRootObject:[NSFont fontWithName:@"Monaco" size:13]] forKey:MGSFragariaPrefsTextFont];
+    [[app.menuQuery.itemArray objectAtIndex:0] setAction:@selector(evalQuery:)];
     
     // show open panel
     [self clickOpenPath:nil];
@@ -73,12 +62,8 @@
 - (IBAction)pressEnterLoadDatabase:(NSTextField *)sender
 {
     if (sender.stringValue.length > 0) {
-        [self setupDatabase];
+        [self setupDatabase:_path.stringValue];
     }
-}
-- (void)focusNewCollection:(id)sender
-{
-    [_newCollection becomeFirstResponder];
 }
 - (IBAction)addCollection:(id)sender
 {
@@ -89,11 +74,26 @@
         [self loadCollections];
     }
 }
+#pragma mark Menu
+- (void)focusNewCollection:(id)sender
+{
+    [_newCollection becomeFirstResponder];
+}
 - (void)removeCollection:(id)sender
 {
     NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
     [_db removeCollection:co.name];
     [self loadCollections];
+}
+- (void)evalQuery:(id)sender
+{
+    // load QueryPrefix -> QueryPrefix.coffee
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"QueryPrefix" ofType:@"coffee"];
+    NSMutableString *queryScript = [NSMutableString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    [queryScript appendString:[_fragaria string]];
+    
+    // eval query
+    [_coffee evalCoffeeScript:queryScript];
 }
 
 #pragma mark Buttons
@@ -119,11 +119,11 @@
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             [_path setStringValue:panel.URL.path];
-            [self setupDatabase];
+            [self setupDatabase:_path.stringValue];
         }
         else if (_path.stringValue.length <= 0) {
             [_path setStringValue:@"/tmp/NyaruDB"];
-            [self setupDatabase];
+            [self setupDatabase:_path.stringValue];
         }
     }];
 }
@@ -140,24 +140,25 @@
 }
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
-    if (_fragaria.string.length <= 0) {
-        NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
-        [_fragaria setString:[NSString stringWithFormat:@"co = db.collectionForName('%@')\n"
-                              "print co.all().fetch()", co.name]];
-    }
+//    if (_fragaria.string.length <= 0) {
+//        NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
+//        [_fragaria setString:[NSString stringWithFormat:@"co = db.collectionForName '%@'\n"
+//                              "print co.all().fetch()", co.name]];
+//    }
 }
 
 
-#pragma mark - Setup
-- (void)setupDatabase
+#pragma mark - NyaruDB
+- (void)setupDatabase:(NSString *)path
 {
     if (_db) {
         [_db close];
     }
     
-    self.window.title = [NSString stringWithFormat:@"NyaruDB Control - %@", _path.stringValue];
+    self.window.title = [NSString stringWithFormat:@"NyaruDB Control - %@", path];
     @try {
-        _db = [[NyaruDB alloc] initWithPath:_path.stringValue];
+        _db = [[NyaruDB alloc] initWithPath:path];
+        [self loadCollections];
     }
     @catch (__unused NSException *exception) {
         NSAlert *alert = [NSAlert new];
@@ -168,7 +169,7 @@
         return;
     }
     
-    [self loadCollections];
+    [self setupCoffeeCocoa];
 }
 - (void)loadCollections
 {
@@ -180,6 +181,71 @@
     if (_collections.count > 0 && _tableCollections.selectedRow == NSUIntegerMax) {
         [_tableCollections selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
     }
+}
+
+
+#pragma mark - CoffeeCocoa
+- (void)setupCoffeeCocoa
+{
+    _coffee = [CoffeeCocoa new];
+    
+    [_coffee.cocoa setPrint:^(id msg) {
+        NSLog(@"cocoa.print %@", msg);
+    }];
+    
+    // load CoffeeScript -> NyaruDB.coffee
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"NyaruDB" ofType:@"coffee"];
+    NSString *nyaruScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    [_coffee evalCoffeeScript:nyaruScript];
+    
+    // extend methods
+    [self mappingInsert];
+    [self mappingFetch];
+    
+    
+    // JavaScript: print()
+    // Objective-C: show result
+    [_coffee extendFunction:@"print" inObject:@"window" handler:^id(id object) {
+        NSLog(@"print %@", object);
+        return nil;
+    }];
+}
+
+#pragma mark [NyaruCollection insert]
+/**
+ JavaScript: nyaru.collection.insert({collectionName, document={}})
+ Objective-C: [NyaruCollection insert]
+ */
+- (void)mappingInsert
+{
+    [_coffee extendFunction:@"insert" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        return [co insert:[object objectForKey:@"document"]];
+    }];
+}
+
+#pragma mark [NyaruCollection fetch]
+/**
+ JavaScript: nyaru.collection.fetch({collectionName, queries=[], skip=0, limit=0})
+ Objective-C: [NyaruCollection fetch]
+ */
+- (void)mappingFetch
+{
+    [_coffee extendFunction:@"fetch" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NSMutableArray *queries = [NSMutableArray new];
+        for (NSDictionary *item in [object objectForKey:@"queries"]) {
+            NyaruQueryCell *queryCell = [NyaruQueryCell new];
+            queryCell.schemaName = [item objectForKey:@"schemaName"];
+            queryCell.operation = [[item objectForKey:@"operation"] unsignedIntegerValue];
+            queryCell.value = [item objectForKey:@"value"];
+            [queries addObject:queryCell];
+        }
+        NSArray *documents = [co fetchByQuery:queries
+                                         skip:[[object objectForKey:@"skip"] unsignedIntegerValue]
+                                        limit:[[object objectForKey:@"limit"] unsignedIntegerValue]];
+        return documents;
+    }];
 }
 
 

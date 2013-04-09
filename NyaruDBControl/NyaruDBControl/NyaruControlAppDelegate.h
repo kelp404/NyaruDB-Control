@@ -16,6 +16,7 @@
 
 #pragma mark - Menus
 @property (strong, nonatomic) IBOutlet NSMenu *menuCollection;
+@property (strong, nonatomic) IBOutlet NSMenu *menuQuery;
 
 #pragma mark - Actions
 - (IBAction)newWindow:(id)sender;

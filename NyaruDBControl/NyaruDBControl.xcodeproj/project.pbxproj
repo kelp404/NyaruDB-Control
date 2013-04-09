@@ -12,7 +12,7 @@
 		210920EE171122B7002EBB93 /* jquery-1.9.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 210920E7171122B7002EBB93 /* jquery-1.9.1.min.js */; };
 		210920F1171122DA002EBB93 /* libCoffeeCocoa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 210920F0171122DA002EBB93 /* libCoffeeCocoa.a */; };
 		210920F317112438002EBB93 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210920F217112438002EBB93 /* WebKit.framework */; };
-		210920F517112459002EBB93 /* MGSFragaria.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210920F417112458002EBB93 /* MGSFragaria.framework */; };
+		210920F817112B11002EBB93 /* NyaruDB.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 210920F717112B11002EBB93 /* NyaruDB.coffee */; };
 		211A7F011702C7CC00275AEF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211A7F001702C7CC00275AEF /* Cocoa.framework */; };
 		211A7F0B1702C7CC00275AEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211A7F091702C7CC00275AEF /* InfoPlist.strings */; };
 		211A7F0D1702C7CC00275AEF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 211A7F0C1702C7CC00275AEF /* main.m */; };
@@ -24,6 +24,7 @@
 		211A7F281702C7CD00275AEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211A7F261702C7CD00275AEF /* InfoPlist.strings */; };
 		211A7F2B1702C7CD00275AEF /* NyaruDBControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */; };
 		21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21552D6B1703087300616FDA /* libNyaruDB-OSX.a */; };
+		218B61DD1712799100669753 /* QueryPrefix.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 218B61DC1712799100669753 /* QueryPrefix.coffee */; };
 		21DF5C9217058FED007565DF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DF5C9017058FED007565DF /* MainWindow.xib */; };
 		21DF5C9617059212007565DF /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF5C9517059212007565DF /* MainWindowController.m */; };
 /* End PBXBuildFile section */
@@ -39,12 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		210920E4171122B7002EBB93 /* cocoa.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = cocoa.coffee; sourceTree = "<group>"; };
-		210920E6171122B7002EBB93 /* coffee-script-1.6.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = "coffee-script-1.6.2.min.js"; path = "JavaScript/coffee-script-1.6.2.min.js"; sourceTree = "<group>"; };
-		210920E7171122B7002EBB93 /* jquery-1.9.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = "jquery-1.9.1.min.js"; path = "JavaScript/jquery-1.9.1.min.js"; sourceTree = "<group>"; };
-		210920F0171122DA002EBB93 /* libCoffeeCocoa.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libCoffeeCocoa.a; path = ../CoffeeCocoa/CoffeeCocoa/build/Release/libCoffeeCocoa.a; sourceTree = "<group>"; };
+		210920E4171122B7002EBB93 /* cocoa.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cocoa.coffee; sourceTree = "<group>"; };
+		210920E6171122B7002EBB93 /* coffee-script-1.6.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "coffee-script-1.6.2.min.js"; path = "JavaScript/coffee-script-1.6.2.min.js"; sourceTree = "<group>"; };
+		210920E7171122B7002EBB93 /* jquery-1.9.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "jquery-1.9.1.min.js"; path = "JavaScript/jquery-1.9.1.min.js"; sourceTree = "<group>"; };
+		210920F0171122DA002EBB93 /* libCoffeeCocoa.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCoffeeCocoa.a; path = ../CoffeeCocoa/CoffeeCocoa/build/Release/libCoffeeCocoa.a; sourceTree = "<group>"; };
 		210920F217112438002EBB93 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		210920F417112458002EBB93 /* MGSFragaria.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MGSFragaria.framework; path = "/Volumes/DA☆ZE/XcodeDerivedData/NyaruDB-Control-ggjsqhnldqwzwbgyycsjttatbsxk/Build/Products/Debug/MGSFragaria.framework"; sourceTree = "<absolute>"; };
+		210920F717112B11002EBB93 /* NyaruDB.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NyaruDB.coffee; sourceTree = "<group>"; };
 		211A7EFD1702C7CC00275AEF /* NyaruDBControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyaruDBControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		211A7F001702C7CC00275AEF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		211A7F031702C7CC00275AEF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -65,6 +66,7 @@
 		211A7F291702C7CD00275AEF /* NyaruDBControlTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NyaruDBControlTests.h; sourceTree = "<group>"; };
 		211A7F2A1702C7CD00275AEF /* NyaruDBControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NyaruDBControlTests.m; sourceTree = "<group>"; };
 		21552D6B1703087300616FDA /* libNyaruDB-OSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNyaruDB-OSX.a"; path = "../NyaruDB/NyaruDB-OSX/build/Release/libNyaruDB-OSX.a"; sourceTree = "<group>"; };
+		218B61DC1712799100669753 /* QueryPrefix.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QueryPrefix.coffee; sourceTree = "<group>"; };
 		21DF5C9117058FED007565DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		21DF5C9417059211007565DF /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		21DF5C9517059212007565DF /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
@@ -75,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				210920F517112459002EBB93 /* MGSFragaria.framework in Frameworks */,
 				210920F317112438002EBB93 /* WebKit.framework in Frameworks */,
 				210920F1171122DA002EBB93 /* libCoffeeCocoa.a in Frameworks */,
 				21552D6C1703087300616FDA /* libNyaruDB-OSX.a in Frameworks */,
@@ -131,6 +132,15 @@
 			path = ../CoffeeCocoa/CoffeeCocoa/CoffeeCocoa;
 			sourceTree = "<group>";
 		};
+		210920F617112B11002EBB93 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				210920F717112B11002EBB93 /* NyaruDB.coffee */,
+				218B61DC1712799100669753 /* QueryPrefix.coffee */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		211A7EF41702C7CC00275AEF = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +165,6 @@
 			children = (
 				210920E3171122A8002EBB93 /* CoffeeCocoa */,
 				21552D6B1703087300616FDA /* libNyaruDB-OSX.a */,
-				210920F417112458002EBB93 /* MGSFragaria.framework */,
 				210920F217112438002EBB93 /* WebKit.framework */,
 				211A7F001702C7CC00275AEF /* Cocoa.framework */,
 				211A7F1E1702C7CD00275AEF /* SenTestingKit.framework */,
@@ -182,6 +191,7 @@
 				21DF5C9417059211007565DF /* MainWindowController.h */,
 				21DF5C9517059212007565DF /* MainWindowController.m */,
 				21DF5C9317058FF3007565DF /* Views */,
+				210920F617112B11002EBB93 /* Resources */,
 				211A7F071702C7CC00275AEF /* Supporting Files */,
 			);
 			path = NyaruDBControl;
@@ -305,6 +315,8 @@
 				210920EC171122B7002EBB93 /* cocoa.coffee in Resources */,
 				210920ED171122B7002EBB93 /* coffee-script-1.6.2.min.js in Resources */,
 				210920EE171122B7002EBB93 /* jquery-1.9.1.min.js in Resources */,
+				210920F817112B11002EBB93 /* NyaruDB.coffee in Resources */,
+				218B61DD1712799100669753 /* QueryPrefix.coffee in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

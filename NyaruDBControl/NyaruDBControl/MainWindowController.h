@@ -9,18 +9,20 @@
 #import <Cocoa/Cocoa.h>
 
 @class NyaruDB;
-@class MGSFragaria;
+@class CoffeeCocoa;
 
 @interface MainWindowController : NSWindowController <NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate> {
     // UI
     IBOutlet NSTextField *_path;
     IBOutlet NSTextField *_newCollection;
     IBOutlet NSTableView *_tableCollections;
-    MGSFragaria *_fragaria;
     IBOutlet NSTextView *_textQuery;
     
     // database
     NyaruDB *_db;
+    
+    // CoffeeCocoa
+    CoffeeCocoa *_coffee;
     
     // collections for table view
     NSArray *_collections;
