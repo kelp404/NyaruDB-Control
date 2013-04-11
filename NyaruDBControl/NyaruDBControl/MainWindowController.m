@@ -97,12 +97,14 @@
 }
 - (void)evalQuery:(id)sender
 {
-    NSTextView *textQuery = [_tabQuery.selectedTabViewItem.view textQuery];
+    QuerySplitView *queryView = (QuerySplitView *)_tabQuery.selectedTabViewItem.view;
     NSMutableString *queryScript = [NSMutableString stringWithString:_queryPrefix];
-    [queryScript appendString:textQuery.string];
+    [queryScript appendString:queryView.textQuery.string];
     
     // eval query
-    [_coffee evalCoffeeScript:queryScript];
+    [queryView.coffee evalCoffeeScript:@"clear()"];
+    [queryView.coffee evalCoffeeScript:queryScript];
+    [self loadCollections];
 }
 
 #pragma mark Buttons
@@ -169,6 +171,12 @@
     split.textQuery = [ViewUtility searchViewIn:split kindOf:[NSTextView class] deep:4];
     [split.textQuery setFont:[NSFont fontWithName:@"Monaco" size:14.0]];
     
+    // setup CoffeeCocoa
+    split.coffee = [self setupCoffeeCocoa];
+    [[split.subviews objectAtIndex:1] removeFromSuperview];
+    [split addSubview:split.coffee.webView];
+    [split.coffee.webView setFrameSize:NSMakeSize(split.frame.size.width, split.frame.size.height - 180)];
+    
     NSTabViewItem *tab = [NSTabViewItem new];
     tab.view = split;
     [tab setLabel:[NSString stringWithFormat:@"Query #%lx", ++_tabIncrement]];
@@ -196,8 +204,6 @@
         [alert runModal];
         return;
     }
-    
-    [self setupCoffeeCocoa];
 }
 - (void)loadCollections
 {
@@ -213,30 +219,34 @@
 
 
 #pragma mark - CoffeeCocoa
-- (void)setupCoffeeCocoa
+- (CoffeeCocoa *)setupCoffeeCocoa
 {
-    _coffee = [CoffeeCocoa new];
+    CoffeeCocoa *coffee = [CoffeeCocoa new];
     
-    [_coffee.cocoa setPrint:^(id msg) {
+    [coffee.cocoa setPrint:^(id msg) {
         NSLog(@"cocoa.print %@", msg);
     }];
     
     // load CoffeeScript -> NyaruDB.coffee
     NSString *path = [[NSBundle mainBundle] pathForResource:@"NyaruDB" ofType:@"coffee"];
     NSString *nyaruScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    [_coffee evalCoffeeScript:nyaruScript];
+    [coffee evalCoffeeScript:nyaruScript];
+    
+    // load CoffeeScript -> NyaruDB-Control.coffee
+    path = [[NSBundle mainBundle] pathForResource:@"NyaruDB-Control" ofType:@"coffee"];
+    NSString *nyaruControlScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    [coffee evalCoffeeScript:nyaruControlScript];
+    
+    // load bootstrap -> bootstrap.min.css
+    path = [[NSBundle mainBundle] pathForResource:@"bootstrap" ofType:@"coffee"];
+    NSString *bootstrapScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    [coffee evalCoffeeScript:bootstrapScript];
     
     // extend methods
-    [self mappingInsert];
-    [self mappingFetch];
+    [self mappingInsert:coffee];
+    [self mappingFetch:coffee];
     
-    
-    // JavaScript: print()
-    // Objective-C: show result
-    [_coffee extendFunction:@"print" inObject:@"window" handler:^id(id object) {
-        NSLog(@"print %@", object);
-        return nil;
-    }];
+    return coffee;
 }
 
 #pragma mark [NyaruCollection insert]
@@ -244,9 +254,9 @@
  JavaScript: nyaru.collection.insert({collectionName, document={}})
  Objective-C: [NyaruCollection insert]
  */
-- (void)mappingInsert
+- (void)mappingInsert:(CoffeeCocoa *)coffee
 {
-    [_coffee extendFunction:@"insert" inObject:@"window.nyaru.collection" handler:^id(id object) {
+    [coffee extendFunction:@"insert" inObject:@"window.nyaru.collection" handler:^id(id object) {
         NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
         return [co insert:[object objectForKey:@"document"]];
     }];
@@ -257,9 +267,9 @@
  JavaScript: nyaru.collection.fetch({collectionName, queries=[], skip=0, limit=0})
  Objective-C: [NyaruCollection fetch]
  */
-- (void)mappingFetch
+- (void)mappingFetch:(CoffeeCocoa *)coffee
 {
-    [_coffee extendFunction:@"fetch" inObject:@"window.nyaru.collection" handler:^id(id object) {
+    [coffee extendFunction:@"fetch" inObject:@"window.nyaru.collection" handler:^id(id object) {
         NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
         NSMutableArray *queries = [NSMutableArray new];
         for (NSDictionary *item in [object objectForKey:@"queries"]) {

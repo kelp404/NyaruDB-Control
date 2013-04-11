@@ -26,7 +26,6 @@
     NyaruDB *_db;
     
     // CoffeeCocoa
-    CoffeeCocoa *_coffee;
     NSString *_queryPrefix;
     
     // collections for table view

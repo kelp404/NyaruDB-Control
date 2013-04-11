@@ -8,8 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class CoffeeCocoa;
+
+
 @interface QuerySplitView : NSSplitView
 
 @property (strong, nonatomic) IBOutlet NSTextView *textQuery;
+@property (strong, nonatomic) CoffeeCocoa *coffee;
 
 @end

@@ -657,6 +657,7 @@
 						<reference key="NSSuperview" ref="774583508"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:13</string>
+						<string key="NSHuggingPriority">{250, 250}</string>
 						<string key="NSClassName">NSView</string>
 					</object>
 				</array>
