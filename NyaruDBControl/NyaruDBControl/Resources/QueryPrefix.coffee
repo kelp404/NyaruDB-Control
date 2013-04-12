@@ -28,12 +28,24 @@ class NyaruCollection
         @name = name
 
     allIndexes: ->
+        ###
+        [NATIVE]
+        call native code -> [NyaruCollection allIndexes]
+        ###
         nyaru.collection.allIndexes collectionName: @name
     createIndex: (index_name) ->
+        ###
+        [NATIVE]
+        call native code -> [NyaruCollection createIndex]
+        ###
         nyaru.collection.createIndex
             collectionName: @name
             indexName: index_name
     removeIndex: (index_name) ->
+        ###
+        [NATIVE]
+        call native code -> [NyaruCollection removeIndex]
+        ###
         nyaru.collection.removeIndex
             collectionName: @name
             indexName: index_name
@@ -61,6 +73,13 @@ class NyaruCollection
         ###
         q = new NyaruQuery(@name)
         q.union index_name, arg
+
+    removeAll: ->
+        ###
+        [NATIVE]
+        call native code -> [NyaruCollection removeAll]
+        ###
+        nyaru.collection.removeAll collectionName: @name
 
 
 class NyaruQuery
@@ -161,6 +180,15 @@ class NyaruQuery
         call native code -> [NyaruQuery cunt]
         ###
         nyaru.collection.count
+            collectionName: @collection_name
+            queries: @queries
+
+    remove: ->
+        ###
+        [NATIVE]
+        call native code -> [NyaruQuery remove]
+        ###
+        nyaru.collection.remove
             collectionName: @collection_name
             queries: @queries
 

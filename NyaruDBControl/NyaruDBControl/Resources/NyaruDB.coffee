@@ -18,6 +18,7 @@ $.extend window.nyaru,
         removeIndex: ({collectionName, indexName}) ->
             [NyaruCollection removeIndex:<#(NSString *)#>]
 
+
         fetch: ({collectionName, queries=[], skip=0, limit=0}) ->
             [NyaruCollection fetchByQuery:<#(NSArray *)#> skip:<#(NSUInteger)#> limit:<#(NSUInteger)#>]
 
@@ -26,5 +27,11 @@ $.extend window.nyaru,
 
         insert: ({collectionName, document={}}) ->
             [NyaruCollection insert:<#(NSDictionary *)#>]
+
+        remove: ({collectionName, queries=[]}) ->
+            [NyaruCollection removeByQuery:<#(NSArray *)#>]
+
+        removeAll: ({collectionName}) ->
+            [NyaruCollection removeAll]
         ###
     }

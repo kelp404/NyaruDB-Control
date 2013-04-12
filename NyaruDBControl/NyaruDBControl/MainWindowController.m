@@ -252,6 +252,8 @@
     [self mappingInsert:coffee];
     [self mappingCount:coffee];
     [self mappingFetch:coffee];
+    [self mappingRemove:coffee];
+    [self mappingRemoveAll:coffee];
     
     return coffee;
 }
@@ -353,6 +355,42 @@
                                          skip:[[object objectForKey:@"skip"] unsignedIntegerValue]
                                         limit:[[object objectForKey:@"limit"] unsignedIntegerValue]];
         return documents;
+    }];
+}
+
+#pragma mark [NyaruCollection remove]
+/**
+ JavaScript: nyaru.collection.remove({collectionName, queries=[]})
+ Objective-C: [NyaruCollection remove]
+ */
+- (void)mappingRemove:(CoffeeCocoa *)coffee
+{
+    [coffee extendFunction:@"remove" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NSMutableArray *queries = [NSMutableArray new];
+        for (NSDictionary *item in [object objectForKey:@"queries"]) {
+            NyaruQueryCell *queryCell = [NyaruQueryCell new];
+            queryCell.schemaName = [item objectForKey:@"schemaName"];
+            queryCell.operation = [[item objectForKey:@"operation"] unsignedIntegerValue];
+            queryCell.value = [item objectForKey:@"value"];
+            [queries addObject:queryCell];
+        }
+        [co removeByQuery:queries];
+        return @1;
+    }];
+}
+
+#pragma mark [NyaruCollection removeAll]
+/**
+ JavaScript: nyaru.collection.removeAll({collectionName})
+ Objective-C: [NyaruCollection removeAll]
+ */
+- (void)mappingRemoveAll:(CoffeeCocoa *)coffee
+{
+    [coffee extendFunction:@"removeAll" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        [co removeAll];
+        return @1;
     }];
 }
 
