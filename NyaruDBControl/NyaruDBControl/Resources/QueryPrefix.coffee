@@ -24,9 +24,11 @@ class NyaruCollection
     ###
     name: ''
 
-    # constructor
     constructor: (name) ->
         @name = name
+
+    allIndexes: ->
+        nyaru.collection.allIndexes collectionName: @name
 
     all: ->
         ###
@@ -81,17 +83,17 @@ class NyaruQuery
         operation = Object.keys arg
         if 'equal' in operation
             @queries.push new NyaruQueryCell(0x40 | 1, index_name, arg.equal)
-        if 'notEqual' in operation
+        else if 'notEqual' in operation
             @queries.push new NyaruQueryCell(0x40, index_name, arg.notEqual)
-        if 'less' in operation
+        else if 'less' in operation
             @queries.push new NyaruQueryCell(0x40 | 2, index_name, arg.less)
-        if 'lessEqual' in operation
+        else if 'lessEqual' in operation
             @queries.push new NyaruQueryCell(0x40 | 3, index_name, arg.lessEqual)
-        if 'greater' in operation
+        else if 'greater' in operation
             @queries.push new NyaruQueryCell(0x40 | 4, index_name, arg.greater)
-        if 'greaterEqual' in operation
+        else if 'greaterEqual' in operation
             @queries.push new NyaruQueryCell(0x40 | 5, index_name, arg.greaterEqual)
-        if 'like' in operation
+        else if 'like' in operation
             @queries.push new NyaruQueryCell(0x40 | 0x30, index_name, arg.like)
         @
 
@@ -112,18 +114,26 @@ class NyaruQuery
         operation = Object.keys arg
         if 'equal' in operation
             @queries.push new NyaruQueryCell(1, index_name, arg.equal)
-        if 'notEqual' in operation
+        else if 'notEqual' in operation
             @queries.push new NyaruQueryCell(0 , index_name, arg.notEqual)
-        if 'less' in operation
+        else if 'less' in operation
             @queries.push new NyaruQueryCell(2, index_name, arg.less)
-        if 'lessEqual' in operation
+        else if 'lessEqual' in operation
             @queries.push new NyaruQueryCell(3, index_name, arg.lessEqual)
-        if 'greater' in operation
+        else if 'greater' in operation
             @queries.push new NyaruQueryCell(4, index_name, arg.greater)
-        if 'greaterEqual' in operation
+        else if 'greaterEqual' in operation
             @queries.push new NyaruQueryCell(5, index_name, arg.greaterEqual)
-        if 'like' in operation
+        else if 'like' in operation
             @queries.push new NyaruQueryCell(0x30, index_name, arg.like)
+        @
+
+    orderBy: (index_name) ->
+        @queries.push new NyaruQUeryCell(0x100, index_name)
+        @
+
+    orderByDESC: (index_name) ->
+        @queries.push new NyaruQUeryCell(0x200, index_name)
         @
 
     fetch: (limit=0, skip=0) ->

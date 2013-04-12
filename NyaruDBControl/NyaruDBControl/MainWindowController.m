@@ -246,11 +246,25 @@
     [coffee evalCoffeeScript:bootstrapScript];
     
     // extend methods
+    [self mappingAllIndexes:coffee];
     [self mappingInsert:coffee];
     [self mappingCount:coffee];
     [self mappingFetch:coffee];
     
     return coffee;
+}
+
+#pragma mark [NyaruCollection allIndexes]
+/**
+ JavaScript: nyaru.collection.allIndexes({collectionName})
+ Objective-C: [NyaruCollection allIndexes]
+ */
+- (void)mappingAllIndexes:(CoffeeCocoa *)coffee
+{
+    [coffee extendFunction:@"allIndexes" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        return [co allIndexes];
+    }];
 }
 
 #pragma mark [NyaruCollection insert]
