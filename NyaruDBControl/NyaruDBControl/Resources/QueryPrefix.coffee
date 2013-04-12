@@ -29,6 +29,14 @@ class NyaruCollection
 
     allIndexes: ->
         nyaru.collection.allIndexes collectionName: @name
+    createIndex: (index_name) ->
+        nyaru.collection.createIndex
+            collectionName: @name
+            indexName: index_name
+    removeIndex: (index_name) ->
+        nyaru.collection.removeIndex
+            collectionName: @name
+            indexName: index_name
 
     all: ->
         ###
@@ -129,11 +137,11 @@ class NyaruQuery
         @
 
     orderBy: (index_name) ->
-        @queries.push new NyaruQUeryCell(0x100, index_name)
+        @queries.push new NyaruQueryCell(0x100, index_name)
         @
 
     orderByDESC: (index_name) ->
-        @queries.push new NyaruQUeryCell(0x200, index_name)
+        @queries.push new NyaruQueryCell(0x200, index_name)
         @
 
     fetch: (limit=0, skip=0) ->

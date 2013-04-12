@@ -247,6 +247,8 @@
     
     // extend methods
     [self mappingAllIndexes:coffee];
+    [self mappingCreateIndexes:coffee];
+    [self mappingRemoveIndexes:coffee];
     [self mappingInsert:coffee];
     [self mappingCount:coffee];
     [self mappingFetch:coffee];
@@ -264,6 +266,34 @@
     [coffee extendFunction:@"allIndexes" inObject:@"window.nyaru.collection" handler:^id(id object) {
         NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
         return [co allIndexes];
+    }];
+}
+
+#pragma mark [NyaruCollection createIndex]
+/**
+ JavaScript: nyaru.collection.createIndex({collectionName, indexName})
+ Objective-C: [NyaruCollection createIndex]
+ */
+- (void)mappingCreateIndexes:(CoffeeCocoa *)coffee
+{
+    [coffee extendFunction:@"createIndex" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        [co createIndex:[object objectForKey:@"indexName"]];
+        return @1;
+    }];
+}
+
+#pragma mark [NyaruCollection removeIndex]
+/**
+ JavaScript: nyaru.collection.removeIndex({collectionName, indexName})
+ Objective-C: [NyaruCollection removeIndex]
+ */
+- (void)mappingRemoveIndexes:(CoffeeCocoa *)coffee
+{
+    [coffee extendFunction:@"removeIndex" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        [co removeIndex:[object objectForKey:@"indexName"]];
+        return @1;
     }];
 }
 

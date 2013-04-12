@@ -10,17 +10,21 @@ window.nyaru = window.nyaru || {}
 
 $.extend window.nyaru,
     collection: {
-         ### Objective-C code
+        ### Objective-C code
         allIndexes: ({collectionName}) ->
             [NyaruCollection allIndexes]
+        createIndex: ({collectionName, indexName}) ->
+            [NyaruCollection createIndex:<#(NSString *)#>]
+        removeIndex: ({collectionName, indexName}) ->
+            [NyaruCollection removeIndex:<#(NSString *)#>]
 
-         fetch: ({collectionName, queries=[], skip=0, limit=0}) ->
-             [NyaruCollection fetchByQuery:<#(NSArray *)#> skip:<#(NSUInteger)#> limit:<#(NSUInteger)#>]
+        fetch: ({collectionName, queries=[], skip=0, limit=0}) ->
+            [NyaruCollection fetchByQuery:<#(NSArray *)#> skip:<#(NSUInteger)#> limit:<#(NSUInteger)#>]
 
         count: ({collectionName, queries=[]}) ->
             [NyaruCollection countByQuery:<#(NSArray *)#>]
 
         insert: ({collectionName, document={}}) ->
-             [NyaruCollection insert:<#(NSDictionary *)#>]
-         ###
+            [NyaruCollection insert:<#(NSDictionary *)#>]
+        ###
     }
