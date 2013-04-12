@@ -18,7 +18,6 @@ format = (obj) ->
         switch typeof(obj)
             when 'string' then return "<span class='text-success'>#{obj}</span>"
             when 'number', 'boolean' then return "<span class='text-info'>#{obj}</span>"
-
             when 'object'
                 if obj.constructor == Date
                     # date
@@ -60,6 +59,7 @@ format = (obj) ->
                         return format([obj])
                     else
                         return '<span class="label label-inverse">unknown type</span>'
+            when 'function' then return '<span class="label label-inverse">function</span>'
             else
                 return '<span class="label label-inverse">unknown type</span>'
     else

@@ -14,6 +14,9 @@ $.extend window.nyaru,
          fetch: ({collectionName, queries=[], skip=0, limit=0}) ->
              [NyaruCollection fetchByQuery:<#(NSArray *)#> skip:<#(NSUInteger)#> limit:<#(NSUInteger)#>]
 
+        count: ({collectionName, queries=[]}) ->
+            [NyaruCollection countByQuery:<#(NSArray *)#>]
+
         insert: ({collectionName, document={}}) ->
              [NyaruCollection insert:<#(NSDictionary *)#>]
          ###

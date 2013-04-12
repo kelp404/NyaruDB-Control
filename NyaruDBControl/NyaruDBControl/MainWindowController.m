@@ -226,6 +226,9 @@
     [coffee.cocoa setPrint:^(id msg) {
         NSLog(@"cocoa.print %@", msg);
     }];
+    [coffee.cocoa setError:^(id msg) {
+        NSLog(@"cocoa.error %@", msg);
+    }];
     
     // load CoffeeScript -> NyaruDB.coffee
     NSString *path = [[NSBundle mainBundle] pathForResource:@"NyaruDB" ofType:@"coffee"];
@@ -244,6 +247,7 @@
     
     // extend methods
     [self mappingInsert:coffee];
+    [self mappingCount:coffee];
     [self mappingFetch:coffee];
     
     return coffee;
@@ -259,6 +263,28 @@
     [coffee extendFunction:@"insert" inObject:@"window.nyaru.collection" handler:^id(id object) {
         NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
         return [co insert:[object objectForKey:@"document"]];
+    }];
+}
+
+#pragma mark [NyaruCollection count]
+/**
+ JavaScript: nyaru.collection.count({collectionName, queries=[]})
+ Objective-C: [NyaruCollection count]
+ */
+- (void)mappingCount:(CoffeeCocoa *)coffee
+{
+    [coffee extendFunction:@"count" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NSMutableArray *queries = [NSMutableArray new];
+        for (NSDictionary *item in [object objectForKey:@"queries"]) {
+            NyaruQueryCell *queryCell = [NyaruQueryCell new];
+            queryCell.schemaName = [item objectForKey:@"schemaName"];
+            queryCell.operation = [[item objectForKey:@"operation"] unsignedIntegerValue];
+            queryCell.value = [item objectForKey:@"value"];
+            [queries addObject:queryCell];
+        }
+        NSNumber *count = [NSNumber numberWithUnsignedInteger:[co countByQuery:queries]];
+        return count;
     }];
 }
 

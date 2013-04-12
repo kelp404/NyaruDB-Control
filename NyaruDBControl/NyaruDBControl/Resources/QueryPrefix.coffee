@@ -27,7 +27,6 @@ class NyaruCollection
     # constructor
     constructor: (name) ->
         @name = name
-        @
 
     all: ->
         ###
@@ -46,6 +45,13 @@ class NyaruCollection
             collectionName: @name
             document: doc
 
+    where: (index_name, arg={}) ->
+        ###
+        Generate NyaruQuery
+        ###
+        q = new NyaruQuery(@name)
+        q.union index_name, arg
+
 
 class NyaruQuery
     ###
@@ -56,9 +62,71 @@ class NyaruQuery
 
     constructor: (collection_name) ->
         @collection_name = collection_name
+        @queries = []
+
+    and: (index_name, arg={}) ->
+        ###
+        Generate NyaruQuery
+        :param arg:
+            equal
+            notEqual
+            less
+            lessEqual
+            greater
+            greaterEqual
+            like
+        ex:
+            co.all().and('index_name', equal: 'value')
+        ###
+        operation = Object.keys arg
+        if 'equal' in operation
+            @queries.push new NyaruQueryCell(0x40 | 1, index_name, arg.equal)
+        if 'notEqual' in operation
+            @queries.push new NyaruQueryCell(0x40, index_name, arg.notEqual)
+        if 'less' in operation
+            @queries.push new NyaruQueryCell(0x40 | 2, index_name, arg.less)
+        if 'lessEqual' in operation
+            @queries.push new NyaruQueryCell(0x40 | 3, index_name, arg.lessEqual)
+        if 'greater' in operation
+            @queries.push new NyaruQueryCell(0x40 | 4, index_name, arg.greater)
+        if 'greaterEqual' in operation
+            @queries.push new NyaruQueryCell(0x40 | 5, index_name, arg.greaterEqual)
+        if 'like' in operation
+            @queries.push new NyaruQueryCell(0x40 | 0x30, index_name, arg.like)
         @
 
-    fetch: (skip=0, limit=0) ->
+    union: (index_name, arg={}) ->
+        ###
+        Generate NyaruQuery
+        :param arg:
+            equal
+            notEqual
+            less
+            lessEqual
+            greater
+            greaterEqual
+            like
+        ex:
+            co.all().union('index_name', equal: 'value')
+        ###
+        operation = Object.keys arg
+        if 'equal' in operation
+            @queries.push new NyaruQueryCell(1, index_name, arg.equal)
+        if 'notEqual' in operation
+            @queries.push new NyaruQueryCell(0 , index_name, arg.notEqual)
+        if 'less' in operation
+            @queries.push new NyaruQueryCell(2, index_name, arg.less)
+        if 'lessEqual' in operation
+            @queries.push new NyaruQueryCell(3, index_name, arg.lessEqual)
+        if 'greater' in operation
+            @queries.push new NyaruQueryCell(4, index_name, arg.greater)
+        if 'greaterEqual' in operation
+            @queries.push new NyaruQueryCell(5, index_name, arg.greaterEqual)
+        if 'like' in operation
+            @queries.push new NyaruQueryCell(0x30, index_name, arg.like)
+        @
+
+    fetch: (limit=0, skip=0) ->
         ###
         [NATIVE]
         call native code -> [NyaruQuery fetch]
@@ -68,6 +136,15 @@ class NyaruQuery
             queries: @queries
             skip: skip
             limit: limit
+
+    count: ->
+        ###
+        [NATIVE]
+        call native code -> [NyaruQuery cunt]
+        ###
+        nyaru.collection.count
+            collectionName: @collection_name
+            queries: @queries
 
 
 class NyaruQueryCell
@@ -82,4 +159,3 @@ class NyaruQueryCell
         @schemaName = schemaName
         @operation = operation
         @value = value
-        @
