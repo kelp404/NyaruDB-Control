@@ -13,8 +13,13 @@ class NyaruDB
     ###
     Objective-C -> NyaruDB
     ###
-    collectionForName: (name) ->
-        new NyaruCollection(name)
+    collectionForName: (name) -> new NyaruCollection(name)
+        ###
+        Get or create a collection.
+        :param name: collection name
+        :return: NyaruCollection
+        ###
+
 window.db = new NyaruDB()
 
 
@@ -31,12 +36,14 @@ class NyaruCollection
         ###
         [NATIVE]
         call native code -> [NyaruCollection allIndexes]
+        :return: ['index name']
         ###
         nyaru.collection.allIndexes collectionName: @name
     createIndex: (index_name) ->
         ###
         [NATIVE]
         call native code -> [NyaruCollection createIndex]
+        :param index_name: index name
         ###
         nyaru.collection.createIndex
             collectionName: @name
@@ -45,6 +52,7 @@ class NyaruCollection
         ###
         [NATIVE]
         call native code -> [NyaruCollection removeIndex]
+        :param index_name: index name
         ###
         nyaru.collection.removeIndex
             collectionName: @name
@@ -62,6 +70,7 @@ class NyaruCollection
         ###
         [NATIVE]
         call native code -> [NyaruCollection insert]
+        :param doc: a new document object
         ###
         nyaru.collection.insert
             collectionName: @name
@@ -70,6 +79,11 @@ class NyaruCollection
     where: (index_name, arg={}) ->
         ###
         Generate NyaruQuery
+        :param index_name: index name
+        :param arg: query operation
+            ex:
+            equal: '11'
+            greater: 12
         ###
         q = new NyaruQuery(@name)
         q.union index_name, arg
@@ -95,7 +109,7 @@ class NyaruQuery
 
     and: (index_name, arg={}) ->
         ###
-        Generate NyaruQuery
+        Append NyaruQueryCell
         :param arg:
             equal
             notEqual
@@ -104,8 +118,8 @@ class NyaruQuery
             greater
             greaterEqual
             like
-        ex:
-            co.all().and('index_name', equal: 'value')
+            ex: co.all().and('index_name', equal: 'value')
+        :return: NyaruQuery
         ###
         operation = Object.keys arg
         if 'equal' in operation
@@ -126,7 +140,7 @@ class NyaruQuery
 
     union: (index_name, arg={}) ->
         ###
-        Generate NyaruQuery
+        Append NyaruQueryCell
         :param arg:
             equal
             notEqual
@@ -135,8 +149,8 @@ class NyaruQuery
             greater
             greaterEqual
             like
-        ex:
-            co.all().union('index_name', equal: 'value')
+            ex: co.all().union('index_name', equal: 'value')
+        :return: NyaruQuery
         ###
         operation = Object.keys arg
         if 'equal' in operation
@@ -156,10 +170,20 @@ class NyaruQuery
         @
 
     orderBy: (index_name) ->
+        ###
+        Append NyaruQueryCell order by
+        :param index_name: index name
+        :return: NyaruQuery
+        ###
         @queries.push new NyaruQueryCell(0x100, index_name)
         @
 
     orderByDESC: (index_name) ->
+        ###
+        Append NyaruQueryCell order by DESC
+        :param index_name: index name
+        :return: NyaruQuery
+        ###
         @queries.push new NyaruQueryCell(0x200, index_name)
         @
 
@@ -167,6 +191,9 @@ class NyaruQuery
         ###
         [NATIVE]
         call native code -> [NyaruQuery fetch]
+        :param limit: result documents limit
+        :param skip: result documents skip
+        :return: [{document}]
         ###
         nyaru.collection.fetch
             collectionName: @collection_name
@@ -178,6 +205,7 @@ class NyaruQuery
         ###
         [NATIVE]
         call native code -> [NyaruQuery cunt]
+        :return: number
         ###
         nyaru.collection.count
             collectionName: @collection_name
@@ -187,6 +215,7 @@ class NyaruQuery
         ###
         [NATIVE]
         call native code -> [NyaruQuery remove]
+        remove documents that are match this query.
         ###
         nyaru.collection.remove
             collectionName: @collection_name
@@ -197,9 +226,9 @@ class NyaruQueryCell
     ###
     Objective-C -> NyaruQueryCell
     ###
-    schemaName: ''
-    operation: 0
-    value: ''
+    schemaName: ''  # index name
+    operation: 0    # query operation
+    value: ''       # query comparison value
 
     constructor: (operation, schemaName='', value='') ->
         @schemaName = schemaName
