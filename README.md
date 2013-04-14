@@ -15,6 +15,14 @@ You could use <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a
 
 
 
+##Installation
++ **git:**
+```
+$ git clone --recursive git://github.com/kelp404/NyaruDB-Control.git
+```
+
+
+
 ##Example
 ```coffee
 # get/create collection 'user'
