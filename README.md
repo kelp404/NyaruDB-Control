@@ -6,7 +6,7 @@ Kelp https://twitter.com/kelp404
 [MIT]: http://www.opensource.org/licenses/mit-license.php
 
 
-NyaruDB Control is a managed tool for <a href="https://github.com/kelp404/NyaruDB" target="_blank">NyaruDB</a> which is a simple NoSQL database in Objective-C.  
+NyaruDB Control is a management tool for <a href="https://github.com/kelp404/NyaruDB" target="_blank">NyaruDB</a> which is a simple NoSQL database in Objective-C.  
 
 You could use <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a> to execute query.  
 
