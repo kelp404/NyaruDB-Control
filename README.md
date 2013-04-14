@@ -10,7 +10,7 @@ NyaruDB Control is a management tool for <a href="https://github.com/kelp404/Nya
 
 You could use <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a> to execute query.  
 
-<img src='https://raw.github.com/kelp404/NyaruDB-Control/master/_images/screenshot00.png' witdh='850px' height='501px'/>  
+<img src='https://raw.github.com/kelp404/NyaruDB-Control/master/_images/screenshot00.png' witdh='850px' height='503px'/>  
 (run coffee script: ⌘+R)  
 
 
