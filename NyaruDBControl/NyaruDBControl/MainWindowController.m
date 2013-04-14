@@ -48,11 +48,15 @@
     NyaruControlAppDelegate *app = (NyaruControlAppDelegate *)[[NSApplication sharedApplication] delegate];
     [[app.menuCollection.itemArray objectAtIndex:0] setAction:@selector(focusNewCollection:)];
     [[app.menuCollection.itemArray objectAtIndex:1] setAction:@selector(removeCollection:)];
-    [[app.menuQuery.itemArray objectAtIndex:0] setAction:@selector(evalQuery:)];
+    [[app.menuQuery.itemArray objectAtIndex:0] setAction:@selector(evalQuery:)];        // run
+    [[app.menuQuery.itemArray objectAtIndex:2] setAction:@selector(newQuery:)];         // new query
+    [[app.menuQuery.itemArray objectAtIndex:3] setAction:@selector(closeQuery:)];       // close query
+    [[app.menuQuery.itemArray objectAtIndex:5] setAction:@selector(nextQuery:)];        // next query
+    [[app.menuQuery.itemArray objectAtIndex:6] setAction:@selector(previousQuery:)];    // previous query
     
     // setup tab
     _tabIncrement = 0;
-    [self addTab];
+    [self addQuery];
     
     // load QueryPrefix -> QueryPrefix.coffee
     NSString *path = [[NSBundle mainBundle] pathForResource:@"QueryPrefix" ofType:@"coffee"];
@@ -83,28 +87,6 @@
         
         [self loadCollections];
     }
-}
-#pragma mark Menu
-- (void)focusNewCollection:(id)sender
-{
-    [_newCollection becomeFirstResponder];
-}
-- (void)removeCollection:(id)sender
-{
-    NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
-    [_db removeCollection:co.name];
-    [self loadCollections];
-}
-- (void)evalQuery:(id)sender
-{
-    QuerySplitView *queryView = (QuerySplitView *)_tabQuery.selectedTabViewItem.view;
-    NSMutableString *queryScript = [NSMutableString stringWithString:_queryPrefix];
-    [queryScript appendString:queryView.textQuery.string];
-    
-    // eval query
-    [queryView.coffee evalCoffeeScript:@"clear()"];
-    [queryView.coffee evalCoffeeScript:queryScript];
-    [self loadCollections];
 }
 
 #pragma mark Buttons
@@ -139,6 +121,67 @@
     }];
 }
 
+#pragma mark - Menu
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+	SEL menuAction = [menuItem action];
+    
+	if (menuAction == @selector(closeQuery:)) {
+        return _tabQuery.tabViewItems.count > 1;
+	}
+    
+ 	return YES;
+}
+#pragma mark collection
+- (void)focusNewCollection:(id)sender
+{
+    [_newCollection becomeFirstResponder];
+}
+- (void)removeCollection:(id)sender
+{
+    NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
+    [_db removeCollection:co.name];
+    [self loadCollections];
+}
+#pragma mark query
+- (void)evalQuery:(id)sender
+{
+    QuerySplitView *queryView = (QuerySplitView *)_tabQuery.selectedTabViewItem.view;
+    NSMutableString *queryScript = [NSMutableString stringWithString:_queryPrefix];
+    [queryScript appendString:queryView.textQuery.string];
+    
+    // eval query
+    [queryView.coffee evalCoffeeScript:@"clear()"];
+    [queryView.coffee evalCoffeeScript:queryScript];
+    [self loadCollections];
+}
+- (void)newQuery:(id)sender
+{
+    [self addQuery];
+    [_tabQuery selectLastTabViewItem:sender];
+    
+    NSTextView *textQuery = [_tabQuery.selectedTabViewItem.view textQuery];
+    if (_tableCollections.selectedRow >= 0) {
+        NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
+        [textQuery setString:[NSString stringWithFormat:@"co = db.collectionForName '%@'\n"
+                              "print co.all().fetch()", co.name]];
+    }
+}
+- (void)closeQuery:(id)sender
+{
+    if (_tabQuery.tabViewItems.count > 1) {
+        [_tabQuery removeTabViewItem:_tabQuery.selectedTabViewItem];
+    }
+}
+- (void)nextQuery:(id)sender
+{
+    [_tabQuery selectNextTabViewItem:sender];
+}
+- (void)previousQuery:(id)sender
+{
+    [_tabQuery selectPreviousTabViewItem:sender];
+}
+
 
 #pragma mark - NSTableViewDelegate (Collections table view)
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
@@ -161,7 +204,7 @@
 
 
 #pragma mark - Helper
-- (void)addTab
+- (void)addQuery
 {
     // copy _splitQuery
     NSData *archivedView = [NSKeyedArchiver archivedDataWithRootObject:_splitQuery];
