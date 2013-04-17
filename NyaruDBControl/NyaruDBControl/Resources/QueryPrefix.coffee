@@ -13,12 +13,13 @@ class NyaruDB
     ###
     Objective-C -> NyaruDB
     ###
-    collectionForName: (name) -> new NyaruCollection(name)
+    collectionForName: (name) ->
         ###
         Get or create a collection.
         :param name: collection name
         :return: NyaruCollection
         ###
+        new NyaruCollection(name)
 
 window.db = new NyaruDB()
 
