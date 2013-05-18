@@ -82,7 +82,7 @@
 - (IBAction)addCollection:(id)sender
 {
     if (_newCollection.stringValue.length > 0) {
-        [_db collectionForName:_newCollection.stringValue];
+        [_db collection:_newCollection.stringValue];
         [_newCollection setStringValue:@""];
         
         [self loadCollections];
@@ -163,7 +163,7 @@
     NSTextView *textQuery = [_tabQuery.selectedTabViewItem.view textQuery];
     if (_tableCollections.selectedRow >= 0) {
         NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
-        [textQuery setString:[NSString stringWithFormat:@"co = db.collectionForName '%@'\n"
+        [textQuery setString:[NSString stringWithFormat:@"co = db.collection '%@'\n"
                               "print co.all().fetch()", co.name]];
     }
 }
@@ -197,7 +197,7 @@
     NSTextView *textQuery = [_tabQuery.selectedTabViewItem.view textQuery];
     if (textQuery.string.length <= 0) {
         NyaruCollection *co = [_collections objectAtIndex:_tableCollections.selectedRow];
-        [textQuery setString:[NSString stringWithFormat:@"co = db.collectionForName '%@'\n"
+        [textQuery setString:[NSString stringWithFormat:@"co = db.collection '%@'\n"
                               "print co.all().fetch()", co.name]];
     }
 }
@@ -292,7 +292,7 @@
     [self mappingAllIndexes:coffee];
     [self mappingCreateIndexes:coffee];
     [self mappingRemoveIndexes:coffee];
-    [self mappingInsert:coffee];
+    [self mappingPut:coffee];
     [self mappingCount:coffee];
     [self mappingFetch:coffee];
     [self mappingRemove:coffee];
@@ -309,7 +309,7 @@
 - (void)mappingAllIndexes:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"allIndexes" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         return [co allIndexes];
     }];
 }
@@ -322,7 +322,7 @@
 - (void)mappingCreateIndexes:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"createIndex" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         [co createIndex:[object objectForKey:@"indexName"]];
         return @1;
     }];
@@ -336,22 +336,22 @@
 - (void)mappingRemoveIndexes:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"removeIndex" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         [co removeIndex:[object objectForKey:@"indexName"]];
         return @1;
     }];
 }
 
-#pragma mark [NyaruCollection insert]
+#pragma mark [NyaruCollection put]
 /**
- JavaScript: nyaru.collection.insert({collectionName, document={}})
- Objective-C: [NyaruCollection insert]
+ JavaScript: nyaru.collection.put({collectionName, document={}})
+ Objective-C: [NyaruCollection put]
  */
-- (void)mappingInsert:(CoffeeCocoa *)coffee
+- (void)mappingPut:(CoffeeCocoa *)coffee
 {
-    [coffee extendFunction:@"insert" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
-        return [co insert:[object objectForKey:@"document"]];
+    [coffee extendFunction:@"put" inObject:@"window.nyaru.collection" handler:^id(id object) {
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
+        return [co put:[object objectForKey:@"document"]];
     }];
 }
 
@@ -363,7 +363,7 @@
 - (void)mappingCount:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"count" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         NSMutableArray *queries = [NSMutableArray new];
         for (NSDictionary *item in [object objectForKey:@"queries"]) {
             NyaruQueryCell *queryCell = [NyaruQueryCell new];
@@ -385,7 +385,7 @@
 - (void)mappingFetch:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"fetch" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         NSMutableArray *queries = [NSMutableArray new];
         for (NSDictionary *item in [object objectForKey:@"queries"]) {
             NyaruQueryCell *queryCell = [NyaruQueryCell new];
@@ -409,7 +409,7 @@
 - (void)mappingRemove:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"remove" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         NSMutableArray *queries = [NSMutableArray new];
         for (NSDictionary *item in [object objectForKey:@"queries"]) {
             NyaruQueryCell *queryCell = [NyaruQueryCell new];
@@ -431,7 +431,7 @@
 - (void)mappingRemoveAll:(CoffeeCocoa *)coffee
 {
     [coffee extendFunction:@"removeAll" inObject:@"window.nyaru.collection" handler:^id(id object) {
-        NyaruCollection *co = [_db collectionForName:[object objectForKey:@"collectionName"]];
+        NyaruCollection *co = [_db collection:[object objectForKey:@"collectionName"]];
         [co removeAll];
         return @1;
     }];

@@ -30,7 +30,6 @@
 		218B61DD1712799100669753 /* QueryPrefix.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 218B61DC1712799100669753 /* QueryPrefix.coffee */; };
 		21DF5C9217058FED007565DF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DF5C9017058FED007565DF /* MainWindow.xib */; };
 		21DF5C9617059212007565DF /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF5C9517059212007565DF /* MainWindowController.m */; };
-		21EAA55517267E0600BFBD5B /* jquery-2.0.0.min.js in Sources */ = {isa = PBXBuildFile; fileRef = 21EAA55417267E0600BFBD5B /* jquery-2.0.0.min.js */; };
 		21EAA55617267E1300BFBD5B /* jquery-2.0.0.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21EAA55417267E0600BFBD5B /* jquery-2.0.0.min.js */; };
 /* End PBXBuildFile section */
 
@@ -383,7 +382,6 @@
 				21DF5C9617059212007565DF /* MainWindowController.m in Sources */,
 				218094C11713D13D006D9C5C /* QuerySplitView.m in Sources */,
 				21027ADC17142740008A433F /* ViewUtility.m in Sources */,
-				21EAA55517267E0600BFBD5B /* jquery-2.0.0.min.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

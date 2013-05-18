@@ -25,8 +25,8 @@ $.extend window.nyaru,
         count: ({collectionName, queries=[]}) ->
             [NyaruCollection countByQuery:<#(NSArray *)#>]
 
-        insert: ({collectionName, document={}}) ->
-            [NyaruCollection insert:<#(NSDictionary *)#>]
+        put: ({collectionName, document={}}) ->
+            [NyaruCollection put:<#(NSDictionary *)#>]
 
         remove: ({collectionName, queries=[]}) ->
             [NyaruCollection removeByQuery:<#(NSArray *)#>]

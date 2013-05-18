@@ -10,7 +10,7 @@ NyaruDB Control is a management tool for <a href="https://github.com/kelp404/Nya
 
 You could use <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a> to execute query.  
 
-<img src='https://raw.github.com/kelp404/NyaruDB-Control/master/_images/screenshot00.png' witdh='850px' height='503px'/>  
+<img src='https://raw.github.com/kelp404/NyaruDB-Control/master/_images/screenshot00.png' witdh='850px' height='505px'/>  
 (run coffee script: ⌘+R)  
 
 
@@ -25,13 +25,13 @@ $ git clone --recursive git://github.com/kelp404/NyaruDB-Control.git
 ##Example
 ```coffee
 # get/create collection 'user'
-co = db.collectionForName 'user'
+co = db.collection 'user'
 
 # create index 'name'
 co.createIndex 'name'
 
-# insert document {name: 'kelp', email:'kelp@phate.org', update:<now>}
-co.insert name: 'kelp', email: 'kelp@phate.org', update: new Date
+# put document {name: 'kelp', email:'kelp@phate.org', update:<now>}
+co.put name: 'kelp', email: 'kelp@phate.org', update: new Date
 
 # fetch all documents then print
 print co.all().fetch()
@@ -48,7 +48,7 @@ print co.all().count()
 ##Class
 ###NyaruDB
 ```coffee
-collectionForName: (name) ->
+collection: (name) ->
     ###
     Get or create a collection.
     :param name: collection name
@@ -83,10 +83,10 @@ removeIndex: (index_name) ->
 
 
 ### Document ###
-insert: (doc) ->
+put: (doc) ->
     ###
     [NATIVE]
-    call native code -> [NyaruCollection insert]
+    call native code -> [NyaruCollection put]
     :param doc: a new document object
     ###
 

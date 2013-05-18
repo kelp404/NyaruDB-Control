@@ -13,7 +13,7 @@ class NyaruDB
     ###
     Objective-C -> NyaruDB
     ###
-    collectionForName: (name) ->
+    collection: (name) ->
         ###
         Get or create a collection.
         :param name: collection name
@@ -67,13 +67,13 @@ class NyaruCollection
         q.queries.push new NyaruQueryCell(0x80)
         q
 
-    insert: (doc) ->
+    put: (doc) ->
         ###
         [NATIVE]
-        call native code -> [NyaruCollection insert]
+        call native code -> [NyaruCollection put]
         :param doc: a new document object
         ###
-        nyaru.collection.insert
+        nyaru.collection.put
             collectionName: @name
             document: doc
 
