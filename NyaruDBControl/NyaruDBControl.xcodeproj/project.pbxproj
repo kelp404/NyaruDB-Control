@@ -510,10 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Volumes/DA☆ZE/XcodeDerivedData/NyaruDB-Control-ggjsqhnldqwzwbgyycsjttatbsxk/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NyaruDBControl/NyaruDBControl-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -531,10 +528,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Volumes/DA☆ZE/XcodeDerivedData/NyaruDB-Control-ggjsqhnldqwzwbgyycsjttatbsxk/Build/Products/Debug\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NyaruDBControl/NyaruDBControl-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
