@@ -5,13 +5,7 @@ build
 *.mode1v3
 *.xcuserstate
 xcuserdata
-
-# old skool
-.svn
-.cvs
-
-# Python
-*.pyc
+*.xccheckout
 
 # PyCharm
 .idea
