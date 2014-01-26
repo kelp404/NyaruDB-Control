@@ -213,6 +213,9 @@
     // setup textQuery
     split.textQuery = [ViewUtility searchViewIn:split kindOf:[NSTextView class] deep:4];
     [split.textQuery setFont:[NSFont fontWithName:@"Monaco" size:14.0]];
+    // Smart Quotes disabled, http://stackoverflow.com/questions/19801601/nstextview-with-smart-quotes-disabled-still-replaces-quotes
+    [split.textQuery setAutomaticQuoteSubstitutionEnabled:NO];
+    split.textQuery.enabledTextCheckingTypes = 0;
     
     // setup CoffeeCocoa
     split.coffee = [self setupCoffeeCocoa];
