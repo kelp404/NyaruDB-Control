@@ -14,30 +14,49 @@ You could use <a href="http://coffeescript.org/" target="_blank">CoffeeScript</a
 
 
 ##Installation
-```
+```bash
 $ git clone --recursive git://github.com/kelp404/NyaruDB-Control.git
 ```
 
 
 
 ##Example
+####get/create a collection 'user'
+>
 ```coffee
-# get/create collection 'user'
 co = db.collection 'user'
+```
 
-# create index 'name'
+####create an index 'name'
+>
+```coffee
 co.createIndex 'name'
+```
 
-# put document {name: 'kelp', email:'kelp@phate.org', update:<now>}
-co.put name: 'kelp', email: 'kelp@phate.org', update: new Date
+####put a document {name: 'kelp', email:'kelp@phate.org', update:<now>}
+>
+```coffee
+co.put
+    name: 'kelp'
+    email: 'kelp@phate.org'
+    update: new Date()
+```
 
-# fetch all documents then print
+####fetch all documents then print
+>
+```coffee
 print co.all().fetch()
+```
 
-# search documents which name is 'kelp'
+####search documents which name is 'kelp'
+>
+```coffee
 print co.where('name', equal: 'kelp').fetch()
+```
 
-# print all documents count
+####print all documents count
+>
+```coffee
 print co.all().count()
 ```
 
